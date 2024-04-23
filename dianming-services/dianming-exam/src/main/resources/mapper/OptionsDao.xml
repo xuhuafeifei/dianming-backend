@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xhf.exam.dao.OptionsDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.xhf.model.exam.entity.OptionsEntity" id="optionsMap">
+        <result property="id" column="id"/>
+        <result property="content" column="content"/>
+        <result property="image" column="image"/>
+        <result property="quId" column="qu_id"/>
+        <result property="correct" column="correct"/>
+        <result property="analysis" column="analysis"/>
+    </resultMap>
+
+    <select id="selectOptionsById" resultMap="optionsMap">
+        select * from options where id = #{id}
+    </select>
+</mapper>

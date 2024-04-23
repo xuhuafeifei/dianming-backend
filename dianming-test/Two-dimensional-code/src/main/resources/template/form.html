@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>表单提交界面</title>
+    <!-- 引入Element框架样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!-- 引入Vue库 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <!-- 引入Element框架脚本 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+</head>
+<body>
+<div id="app">
+    <el-form @submit.native.prevent="submitForm" label-position="top">
+        <el-form-item label="班级">
+            <el-input v-model="yourClass" required></el-input>
+        </el-form-item>
+        <el-form-item label="学号">
+            <el-input v-model="studentId" required></el-input>
+        </el-form-item>
+        <el-form-item>
+            <el-button type="primary" native-type="submit">提交</el-button>
+        </el-form-item>
+    </el-form>
+</div>
+
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            yourClass: '',
+            studentId: ''
+        },
+        methods: {
+            submitForm() {
+                // 在这里可以编写提交表单的逻辑
+                // 例如，可以将数据发送到后端API进行处理
+                console.log('班级：', this.class);
+                console.log('学号：', this.studentId);
+            }
+        }
+    });
+</script>
+</body>
+</html>

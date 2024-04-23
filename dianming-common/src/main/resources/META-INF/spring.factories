@@ -1,0 +1,7 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.xhf.common.exception.RRExceptionHandler,\
+  com.xhf.common.redis.CacheService,\
+  com.xhf.common.config.MybatisPlusConfig,\
+  com.xhf.common.config.MyMetaObjectHandler,\
+  com.xhf.common.config.JacksonObjectMapper,\
+  com.xhf.common.listenner.CustomLogContextListener

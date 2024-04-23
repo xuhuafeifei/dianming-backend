@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xhf.sign.dao.TermSignStartHistoryDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.xhf.model.sign.entity.TermSignStartTimeEntity" id="termScheduleMap">
+        <result property="id" column="id"/>
+        <result property="semId" column="sem_id"/>
+        <result property="startTime" column="start_time"/>
+        <result property="count" column="count"/>
+    </resultMap>
+
+    <insert id="saveInfo">
+        -- 声明变量并获取行数
+        SET @row_count = (SELECT COUNT(*) FROM term_sign_start_history_time as tssht WHERE tssht.sem_id = #{entity.semId}) + 1;
+
+        -- 插入语句，使用变量的值
+        INSERT INTO term_sign_start_history_time (sem_id, start_time, `count`)
+        VALUES (#{entity.semId}, #{entity.startTime}, @row_count);
+
+    </insert>
+
+
+</mapper>

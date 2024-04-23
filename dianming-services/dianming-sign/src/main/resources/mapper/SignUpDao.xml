@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xhf.sign.dao.SignUpDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.xhf.model.sign.entity.SignUpEntity" id="signUpMap">
+        <result property="signId" column="sign_id"/>
+        <result property="stuSno" column="stu_id"/>
+        <result property="semId" column="sem_id"/>
+        <result property="signTime" column="sign_time"/>
+    </resultMap>
+
+
+</mapper>

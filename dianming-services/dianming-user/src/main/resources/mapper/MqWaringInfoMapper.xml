@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xhf.user.dao.MqWaringInfoDao">
+
+    <resultMap id="BaseResultMap" type="com.xhf.model.user.entity.MqWaringInfo">
+            <id property="mqWaringId" column="mq_waring_id" jdbcType="INTEGER"/>
+            <result property="message" column="message" jdbcType="VARCHAR"/>
+            <result property="waringInfo" column="waring_info" jdbcType="VARCHAR"/>
+            <result property="startTime" column="start_time" jdbcType="TIMESTAMP"/>
+            <result property="endTime" column="end_time" jdbcType="TIMESTAMP"/>
+            <result property="status" column="status" jdbcType="BOOLEAN"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        mq_waring_id,message,waring_info,
+        start_time,end_time,status
+    </sql>
+</mapper>

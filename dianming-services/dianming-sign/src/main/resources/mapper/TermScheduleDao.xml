@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xhf.sign.dao.TermScheduleDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.xhf.model.sign.entity.TermScheduleEntity" id="termScheduleMap">
+        <result property="semesterId" column="semester_id"/>
+        <result property="semester" column="semester"/>
+        <result property="course" column="course"/>
+        <result property="classNumber" column="class_number"/>
+        <result property="signStartTime" column="sign_start_time"/>
+        <result property="signLastTime" column="sign_last_time"/>
+        <result property="finished" column="finished"/>
+        <result property="count" column="count"/>
+    </resultMap>
+
+    <!-- 批量修改学期信息, 修改时间, 统计签到次数 -->
+    <update id="updateInfo">
+        UPDATE term_schedule AS ts
+        <set>
+            ts.count = ( SELECT COUNT( tssht.id ) FROM term_sign_start_history_time AS tssht WHERE tssht.id = #{entity.semesterId}) + 1,
+            <if test="entity.signStartTime != null">
+                ts.sign_start_time = #{entity.signStartTime},
+            </if>
+            <if test="entity.signLastTime != null">
+                ts.sign_last_time = #{entity.signLastTime},
+            </if>
+            <if test="entity.signLastTime == null">
+                ts.sign_last_time = 5,
+            </if>
+        </set>
+        WHERE
+            ts.semester_id = #{entity.semesterId};
+    </update>
+
+
+</mapper>

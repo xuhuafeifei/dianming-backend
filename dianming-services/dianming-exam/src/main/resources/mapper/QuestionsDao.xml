@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xhf.exam.dao.QuestionsDao">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <!-- 不一致字段的映射 -->
+    <resultMap type="com.xhf.model.exam.entity.QuestionsEntity" id="questionsMap">
+        <result property="id" column="id"/>
+        <result property="content" column="content"/>
+        <result property="quType" column="qu_type"/>
+        <result property="drawNum" column="draw_num"/>
+        <result property="rightNum" column="right_num"/>
+        <result property="analysis" column="analysis"/>
+        <result property="image" column="image"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="remark" column="remark"/>
+        <result property="level" column="level"/>
+        <result property="choose" column="choose"/>
+        <result property="chapter" column="chapter"/>
+        <result property="status" column="status"/>
+    </resultMap>
+
+    <resultMap type="com.xhf.model.exam.dto.QuestionDto" id="questoinsDtoMap" extends="questions2Map">
+        <collection property="repoIds" ofType="Long"/>
+        <collection property="answerList" ofType="com.xhf.model.exam.entity.OptionsEntity">
+            <result property="id" column="op_id"/>
+            <result property="content" column="op_content"/>
+            <result property="image" column="op_image"/>
+            <result property="quId" column="op_qu_id"/>
+            <result property="correct" column="correct"/>
+            <result property="analysis" column="op_analysis"/>
+        </collection>
+    </resultMap>
+
+    <resultMap type="com.xhf.model.exam.entity.QuestionsEntity" id="questions2Map">
+        <result property="id" column="qu_id"/>
+        <result property="content" column="qu_content"/>
+        <result property="quType" column="qu_type"/>
+        <result property="drawNum" column="draw_num"/>
+        <result property="rightNum" column="right_num"/>
+        <result property="analysis" column="qu_analysis"/>
+        <result property="image" column="qu_image"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="remark" column="remark"/>
+        <result property="level" column="level"/>
+        <result property="choose" column="choose"/>
+        <result property="chapter" column="chapter"/>
+        <result property="status" column="status"/>
+    </resultMap>
+
+    <select id="getQu" resultMap="questoinsDtoMap">
+        SELECT
+            qu.id qu_id,
+            qu.content qu_content,
+            qu_type,
+            qu.right_num,
+            qu.analysis qu_analysis,
+            qu.image qu_image,
+            qu.create_time,
+            qu.update_time,
+            qu.remark,
+            qu.LEVEL,
+            qu.draw_num,
+            qu.choose,
+            qu.chapter,
+            qu.STATUS,
+            op.id op_id,
+            op.content op_content,
+            op.image op_image,
+            op.qu_id op_qu_id,
+            op.correct,
+            op.analysis op_analysis
+        FROM
+            questions qu
+            LEFT JOIN options op ON qu.id = op.qu_id
+        WHERE
+            ( qu_id IN ( SELECT qu_id FROM qu_repo WHERE repo_id = 1 ) AND choose = 0 AND STATUS = 1 )
+        ORDER BY
+            draw_num;
+--         SELECT
+-- 	        *
+--         FROM
+-- 	        questions
+-- 	    LEFT JOIN OPTIONS ON ( OPTIONS.qu_id = questions.id )
+--         WHERE
+-- 	        ( questions.id IN ( SELECT qu_id FROM qu_repo WHERE ( repo_id = 1 )) AND choose = 0 AND STATUS = 1 )
+--         ORDER BY
+-- 	        draw_num ASC
+    </select>
+    <!-- -->
+    <!-- 参数占位符: #{} -->
+    <!--
+        * 特殊字符处理
+        * select * from tb_brand where id < #{id}
+        * < 报错
+        * &lt; 转义字符
+        * CDATA区域
+        <![CDATA[
+            <
+        ]]>
+     -->
+
+
+    <!--
+        * 多条件查询
+        * @Param("status") int status 传值, 指定status传入到, status占位符(#{status})
+            * List<Brand> selectByCondition(@param("status") int status)
+            * select * from tb_brand where status = #{status}
+        * Brand brand 传对象, 对象属性从对象的get方法获取
+            * List<Brand> selectByCondition(Brand brand)
+            * select * from tb_brand where status = #{status};
+    -->
+
+    <!--
+        * 动态sql
+    -->
+    <!--    <select id="selectRepoIds" resultType="list">-->
+    <!--        select qu_id from qu_repo where (repp_id = #{repoId})-->
+    <!--    </select>>-->
+
+</mapper>

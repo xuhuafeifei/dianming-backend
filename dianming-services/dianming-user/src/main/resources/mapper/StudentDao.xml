@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xhf.user.dao.StudentDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.xhf.model.user.entity.StudentEntity" id="studentMap">
+        <result property="id" column="id"/>
+        <result property="sclass" column="sclass"/>
+        <result property="sno" column="sno"/>
+        <result property="sname" column="sname"/>
+        <result property="label" column="label"/>
+        <result property="absent" column="absent"/>
+        <result property="phoneNumber" column="phone_number"/>
+        <result property="registerTime" column="register_time"/>
+    </resultMap>
+
+    <update id="updateImages" parameterType="java.util.List">
+        <foreach collection="stus" item="item" separator=";">
+            UPDATE student
+            SET sportrait = #{item.sportrait}
+            WHERE
+                sno = #{item.sno}
+        </foreach>
+    </update>
+
+</mapper>

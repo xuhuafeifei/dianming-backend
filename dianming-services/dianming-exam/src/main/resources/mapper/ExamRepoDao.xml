@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xhf.exam.dao.ExamRepoDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.xhf.model.exam.entity.ExamRepoEntity" id="examRepoMap">
+        <result property="id" column="id"/>
+        <result property="examId" column="exam_id"/>
+        <result property="repoName" column="repo_name"/>
+        <result property="repoId" column="repo_id"/>
+        <result property="radioCount" column="radio_count"/>
+        <result property="radioScore" column="radio_score"/>
+        <result property="multiCount" column="multi_count"/>
+        <result property="multiScore" column="multi_score"/>
+        <result property="judgeCount" column="judge_count"/>
+        <result property="judgeScore" column="judge_score"/>
+        <result property="saqCount" column="saq_count"/>
+        <result property="saqScore" column="saq_score"/>
+    </resultMap>
+
+
+</mapper>
